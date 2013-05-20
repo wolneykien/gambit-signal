@@ -29,13 +29,13 @@ This package contains the library link file
 %setup -q
 
 %build
-gsc -:daq- -link -flat -o libgambc-signal.c signal.scm
-gsc -:daq- -obj -cc-options "-D___LIBRARY -D___SHARED -D___PRIMAL" signal.c libgambc-signal.c
-gcc -shared signal.o libgambc-signal.o -lgambc -o libgambc-signal.so
+%make_build
 
 %install
-install -Dp -m0644 libgambc-signal.so %buildroot%{_libdir}/gambit/libgambc-signal.so
-install -Dp -m0644 libgambc-signal.c %buildroot%{_includedir}/gambit/libgambc-signal.c
+%make_install
+
+%check
+%make check
 
 %files
 %{_libdir}/gambit/libgambc-signal.so
