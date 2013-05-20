@@ -32,7 +32,7 @@ This package contains the library link file
 %make_build
 
 %install
-%make_install
+%makeinstall
 
 %check
 %make check
