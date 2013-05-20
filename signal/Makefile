@@ -8,10 +8,10 @@ LIBS=
 
 all: libgambc-$(BASENAME).so
 
-$(BASENAME).c libgambc-$(BASENAME).c: $(BASENAME).scm $(BASENAME)-common.scm $(BASENAME)-ffi.scm
+libgambc-$(BASENAME).c: $(BASENAME).scm $(BASENAME)-common.scm $(BASENAME)-ffi.scm
 	gsc -:daq- -link -flat -o libgambc-$(BASENAME).c $(BASENAME).scm
 
-$(BASENAME).o libgambc-$(BASENAME).o: $(BASENAME).c libgambc-$(BASENAME).c
+libgambc-$(BASENAME).o: $(BASENAME).c libgambc-$(BASENAME).c
 	gsc -:daq- -obj -cc-options "-D___LIBRARY -D___SHARED -D___PRIMAL" $(BASENAME).c libgambc-$(BASENAME).c
 
 libgambc-$(BASENAME).so: $(BASENAME).o libgambc-$(BASENAME).o
