@@ -17,6 +17,8 @@
 
 (c-declare "
 #include <signal.h>
+#include <sys/types.h>
+#include <unistd.h>
 typedef void (*SIGNAL_HANDLER)(int);
 ")
 
@@ -43,6 +45,14 @@ static void signal_handler(int x) {
 (define send-signal
   (c-lambda (unsigned-int int)
     int "___result = kill(___arg1, ___arg2);"))
+
+(define get-pid
+  (c-lambda ()
+    int "___result = getpid();"))
+
+(define get-parent-pid
+  (c-lambda ()
+    int "___result = getppid();"))
 
 (define signal-SIGHUP-code (c-lambda () int "___result = SIGHUP;"))
 (define signal-SIGINT-code (c-lambda () int "___result = SIGINT;"))
