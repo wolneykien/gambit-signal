@@ -1,8 +1,8 @@
 Name: gambit-signal
 Version: 1.0
-Release: alt9
+Release: alt10
 Summary: UNIX signal handling library for Gambit-C Scheme programming system
-License: GPL
+License: GPLv3+
 Group: Development/Scheme
 
 Packager: Paul Wolneykien <manowar@altlinux.ru>
@@ -44,6 +44,9 @@ install -Dp -m0644 libgambc-signal.c %buildroot%{_includedir}/gambit/libgambc-si
 %{_includedir}/gambit/libgambc-signal.c
 
 %changelog
+* Mon May 20 2013 Paul Wolneykien <manowar@altlinux.org> 1.0-alt10
+- Refactor the sources.
+
 * Tue May 14 2013 Paul Wolneykien <manowar@altlinux.org> 1.0-alt9
 - Rebuild with a new version of Gambit
 
