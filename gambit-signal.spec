@@ -45,7 +45,10 @@ This package contains the library link file
 
 %changelog
 * Mon May 20 2013 Paul Wolneykien <manowar@altlinux.org> 1.0-alt10
-- Refactor the sources.
+- Add the test program.
+- Add getpid and getppid wrappers.
+- Add the Makefile and use it.
+- Refactor the sources, update the licensing information.
 
 * Tue May 14 2013 Paul Wolneykien <manowar@altlinux.org> 1.0-alt9
 - Rebuild with a new version of Gambit
