@@ -9,7 +9,7 @@ Packager: Paul Wolneykien <manowar@altlinux.ru>
 
 BuildPreReq: gambit glibc-devel
 
-Source: %name-%version.tar.gz
+Source: %name-%version.tar
 
 %description
 UNIX signal handling library for Gambit-C Scheme programming system

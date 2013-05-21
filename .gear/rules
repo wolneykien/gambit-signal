@@ -1,1 +1,1 @@
-tar.gz: signal name=@name@-@version@
+tar: signal name=@name@-@version@
