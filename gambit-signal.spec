@@ -45,6 +45,7 @@ This package contains the library link file
 
 %changelog
 * Mon May 20 2013 Paul Wolneykien <manowar@altlinux.org> 1.0-alt10
+- Bundle sources in plain tar.
 - Add the test program.
 - Add getpid and getppid wrappers.
 - Add the Makefile and use it.
