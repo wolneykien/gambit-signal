@@ -82,5 +82,4 @@
   (and (pair? e) (eq? 'signal-exception (car e))))
 
 (define (signal-exception-number e)
-  (cadr e))
-
+  (cdr e))
