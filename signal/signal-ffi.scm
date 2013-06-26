@@ -18,23 +18,54 @@
 (c-declare "
 #include <signal.h>
 #include <sys/types.h>
+#include <string.h>
 #include <unistd.h>
+
 typedef void (*SIGNAL_HANDLER)(int);
+
+static int signal_table[256];
+static void set_signal (int signum) {
+    if (signum < (sizeof (signal_table) / sizeof (int))) {
+        signal_table[signum] = 1;
+        ___EXT (___raise_interrupt) (___INTR_USER);
+    }
+}
+static int clear_signal () {
+    int signum = 0;
+
+    while (signum < (sizeof (signal_table) / sizeof (int)) && !signal_table[signum]) {
+        signum++;
+    }
+
+    if (signum < (sizeof (signal_table) / sizeof (int))) {
+        signal_table[signum] = 0;
+        return signum;
+    } else {
+        return 0;
+    }
+}
 ")
 
-(c-define (raise-signal-exception sig)
-          (int)
-          void
-          "raise_signal_exception" ""
-  (raise (cons 'signal-exception sig)))
+(c-initialize "
+memset (signal_table, 0, sizeof (signal_table));
+")
 
-(c-declare "
-static void signal_handler(int x) {
-    raise_signal_exception(x);
-}")
+(define clear-signal
+  (c-lambda () int "___result = clear_signal ();"))
 
-(define signal-set-exception!
-  (c-lambda (int) void "signal(___arg1, signal_handler);"))
+(define (init-signal-interrupt-handler)
+  (##interrupt-vector-set! 0
+    (lambda ()
+      (let ((signum (clear-signal)))
+	(if (> signum 0)
+	  (raise (cons 'signal-exception signum)))))))
+
+(define ##signal-set-exception!
+  (c-lambda (int) void "signal(___arg1, set_signal);"))
+
+(define (signal-set-exception! signum)
+  (init-signal-interrupt-handler)
+  (##signal-set-exception! signum))
 
 (define signal-set-ignore!
   (c-lambda (int) void "signal(___arg1, SIG_IGN);"))
