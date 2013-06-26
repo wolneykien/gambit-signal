@@ -55,10 +55,13 @@ memset (signal_table, 0, sizeof (signal_table));
 
 (define (init-signal-interrupt-handler)
   (##interrupt-vector-set! 0
-    (lambda ()
-      (let ((signum (clear-signal)))
-	(if (> signum 0)
-	  (raise (cons 'signal-exception signum)))))))
+    (let ((recipient (current-thread)))
+      (lambda ()
+	(let ((signum (clear-signal)))
+	  (if (> signum 0)
+	    (thread-interrupt! recipient
+	      (lambda ()
+		(raise (cons 'signal-exception signum))))))))))
 
 (define ##signal-set-exception!
   (c-lambda (int) void "signal(___arg1, set_signal);"))
