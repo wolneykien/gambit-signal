@@ -28,4 +28,5 @@
     (send-signal (get-pid) *signum*)
     (thread-sleep! 1)
     (display "No signals received. Test FAILED")
-    (newline)))
+    (newline)
+    (exit 1)))
